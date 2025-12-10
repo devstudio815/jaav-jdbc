@@ -1,18 +1,15 @@
-import Animals.Animals;
-import Animals.Models;
+
+import Zoos.Zoos;
+import java.sql.Connection;
 
 class Main {
+
     public static void main(String[] args) {
         Config config = new Config();
-        Animals animals = new Animals();
-        Models models = new Models();
-        models.SetName("Sapi");
-        models.SetAnimal_home_id(2);
+        Zoos zoos = new Zoos();
+        Connection conn = config.connect();
+        zoos.FindAll(conn);
 
-        animals.Update(config.connect(), models.GetName(), 4, 1);
-        // animals.Update(config.connect(), models.GetName(), 1, 1);
-        // models.GetAnimal_home_id()
-        animals.FindAll(config.connect());
     }
 
 }

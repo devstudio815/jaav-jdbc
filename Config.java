@@ -11,13 +11,14 @@ class DatabaseConnection {
             Class.forName("org.sqlite.JDBC");
 
             // config file jdbc
-            String url = "jdbc:sqlite:./db.db";
+            String url = "jdbc:sqlite:C:\\Users\\ADVAN\\Documents\\data\\tugas\\jaav-jdbc\\db.db";
 
             // get connection to db
             conn = DriverManager.getConnection(url);
 
             // warning if connect to db success
             System.out.println("Connection to SQLite has been established.");
+            
             return conn;
         } catch (SQLException e) {
             // error dari sql
@@ -28,7 +29,20 @@ class DatabaseConnection {
         return conn;
     }
 
-    // public void execute(Connection conn) {
+   
+
+}
+
+public class Config extends DatabaseConnection {
+    public String main() {
+        DatabaseConnection dbConnect = new DatabaseConnection();
+        dbConnect.connect();
+        return "Config Is Here!!!";
+    }
+}
+
+
+ // public void execute(Connection conn) {
     // try {
     // if (conn != null) {
     // Statement statement = conn.createStatement();
@@ -45,13 +59,3 @@ class DatabaseConnection {
     // System.out.println("Exception is " + e.getMessage());
     // }
     // }
-
-}
-
-public class Config extends DatabaseConnection {
-    public String main() {
-        DatabaseConnection dbConnect = new DatabaseConnection();
-        dbConnect.connect();
-        return "Config Is Here!!!";
-    }
-}

@@ -1,14 +1,11 @@
 package Animals;
 
-interface AnimalModel {
-    void UpsertAnimals();
-}
+
 
 public class Models {
     int ID;
     String Name;
     int Animal_home_id;
-    String Habitat;
 
     public void SetName(String req) {
         Name = req;
@@ -24,6 +21,10 @@ public class Models {
 
     public int GetAnimal_home_id() {
         return Animal_home_id;
+    }
+
+    public int getID() {
+        return ID;
     }
 
 }

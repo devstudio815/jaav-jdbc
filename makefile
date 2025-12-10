@@ -1,2 +1,2 @@
 run:
-	javac *.java Animals/*.java; java Main.java
+	javac *.java && javac .\Animals\*.java && javac .\Habitat\*.java && java Main.java

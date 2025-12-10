@@ -1,4 +1,4 @@
-package Animals;
+package Habitat;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,23 +8,44 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animals {
-    public void Create(Connection conn, String name, int Animal_home_id) {
+public class Habitats {
+    public void Delete(Connection conn, int id) {
         try {
             if (conn != null) {
                 String query = """
-                        insert into animals (name,animal_home_id)
-                        values (?,?)
+                        delete from animals_home where id = ?
+                        """;
+                PreparedStatement preparedStatement = conn.prepareStatement(query);
+
+                preparedStatement.setInt(1, id);
+                preparedStatement.executeUpdate();
+
+                System.out.print("delete animals home successfully");
+            } else {
+                System.out.print("error bossque");
+            }
+        } catch (SQLException e) {
+            System.out.println("Exception is " + e.getMessage());
+
+        }
+    }
+
+    public void Create(Connection conn, String name) {
+        try {
+            if (conn != null) {
+
+                String query = """
+                        insert into animals_home (name)
+                        values (?)
                         """;
                 PreparedStatement preparedStatement = conn.prepareStatement(query);
 
                 preparedStatement.setString(1, name);
-                preparedStatement.setInt(2, Animal_home_id);
                 preparedStatement.executeUpdate();
 
-                System.out.print("create animals successfully");
+                System.out.print("create animals home successfully");
             } else {
-                System.out.print("ERROR");
+                System.out.print("error bossque");
             }
         } catch (SQLException e) {
             System.out.println("SQLException is " + e.getMessage());
@@ -37,15 +58,16 @@ public class Animals {
             if (conn != null) {
 
                 Statement statement = conn.createStatement();
-                String query = "select * from animals";
+                String query = "select * from animals_home";
                 ResultSet resultSet = statement.executeQuery(query);
+
                 while (resultSet.next()) {
                     int id = resultSet.getInt("id");
                     String name = resultSet.getString("name");
                     System.out.println("ID: " + id + ", name : " + name);
                 }
             } else {
-                System.out.print("ERROR");
+                System.out.print("error bossque");
             }
         } catch (SQLException e) {
             System.out.println("SQLException is " + e.getMessage());
@@ -53,20 +75,15 @@ public class Animals {
         }
     }
 
-    public void Update(Connection conn, String name, int id, int animalHomeId) {
+    public void Update(Connection conn, String name, int id) {
         try {
             if (conn != null) {
-                StringBuilder query = new StringBuilder("UPDATE animals SET ");
+                StringBuilder query = new StringBuilder("UPDATE animals_home SET ");
                 List<Object> values = new ArrayList<>();
 
                 if (name != null && !name.isEmpty()) {
                     query.append("name = ?, ");
                     values.add(name);
-                }
-
-                if (animalHomeId > 0) {
-                    query.append("animal_home_id = ?, ");
-                    values.add(animalHomeId);
                 }
 
                 // Hapus koma terakhir
@@ -97,25 +114,4 @@ public class Animals {
             System.out.println("SQLException: " + e.getMessage());
         }
     }
-    public void Delete(Connection conn, int id) {
-        try {
-            if (conn != null) {
-                String query = """
-                        delete from animals where id = ?
-                        """;
-                PreparedStatement preparedStatement = conn.prepareStatement(query);
-
-                preparedStatement.setInt(1, id);
-                preparedStatement.executeUpdate();
-
-                System.out.print("delete animals successfully");
-            } else {
-                System.out.print("error bossque");
-            }
-        } catch (SQLException e) {
-            System.out.println("SQLException is " + e.getMessage());
-
-        }
-    }
-
 }
